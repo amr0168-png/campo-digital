@@ -1,0 +1,768 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Campo Digital: guía para estudiantes de Enseñanza y Animación Sociodeportiva sobre tecnologías, oportunidades laborales y una gymkana digital de prueba.">
+<meta name="color-scheme" content="light dark">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Campo Digital">
+<meta property="og:description" content="Tecnologías, trabajo y juego para quien estudia Enseñanza y Animación Sociodeportiva.">
+<title>Campo Digital</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: guía editorial tipo "portal de oportunidades". Cabecera fija con 4 secciones, hero con pista de atletismo, fichas comparables y una demo jugable. */
+:root{
+  --bg:#F2F4EF; --surface:#FFFFFF; --soft:#E6ECE4; --ink:#13203A; --muted:#505B73; --line:#CFD6CC;
+  --lane:#D93A1F; --pitch:#1B7A57; --hi:#F4C542; --on-lane:#FFFFFF; --on-hi:#13203A;
+  --f-display:"Bricolage Grotesque","Arial Narrow",Arial,sans-serif;
+  --f-body:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0E1520; --surface:#16202E; --soft:#1B2839; --ink:#EAF0F7; --muted:#9FABBF; --line:#2A3748;
+  --lane:#FF6A4D; --pitch:#4CC38F; --hi:#F4C542; --on-lane:#0E1520; --on-hi:#13203A; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0E1520; --surface:#16202E; --soft:#1B2839; --ink:#EAF0F7; --muted:#9FABBF; --line:#2A3748;
+  --lane:#FF6A4D; --pitch:#4CC38F; --hi:#F4C542; --on-lane:#0E1520; --on-hi:#13203A; color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font:400 16px/1.6 var(--f-body);-webkit-text-size-adjust:100%}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--surface)}
+h1,h2,h3,h4{font-family:var(--f-display);line-height:1.08;margin:0;text-wrap:balance;letter-spacing:-.01em}
+p{margin:0}
+a{color:inherit}
+.wrap{width:100%;max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.mono{font-family:var(--f-mono);font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+:focus-visible{outline:3px solid var(--hi);outline-offset:2px;border-radius:4px}
+
+/* Cabecera */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--surface);border-bottom:2px solid var(--ink)}
+.top .wrap{display:flex;align-items:center;gap:20px;min-height:56px}
+.brand{font:800 1.25rem/1 var(--f-display);text-decoration:none;white-space:nowrap}
+.brand b{color:var(--lane)}
+.nav{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;margin-left:auto}
+.nav::-webkit-scrollbar{display:none}
+.nav a{white-space:nowrap;text-decoration:none;font-weight:600;font-size:.9rem;padding:8px 12px;border-radius:999px;border:2px solid transparent}
+.nav a:hover{border-color:var(--line)}
+.nav a[aria-current="true"]{background:var(--ink);color:var(--bg)}
+
+section{scroll-margin-top:72px}
+.band{padding-block:clamp(44px,7vw,88px)}
+.band.alt{background:var(--soft)}
+.kicker{display:inline-flex;gap:8px;align-items:center}
+.kicker::before{content:"";width:28px;height:6px;background:var(--lane);border-radius:3px}
+h2.sec{font-size:clamp(2rem,5vw,3.4rem);margin-top:12px;max-width:18ch}
+.lead{font-size:1.08rem;color:var(--muted);max-width:62ch;margin-top:16px}
+
+/* Botones */
+.btn{display:inline-flex;align-items:center;gap:8px;font:600 .95rem var(--f-body);text-decoration:none;padding:12px 20px;border-radius:10px;border:2px solid var(--ink);background:var(--surface);color:var(--ink);cursor:pointer}
+.btn:hover{transform:translateY(-1px);box-shadow:0 3px 0 var(--ink)}
+.btn.primary{background:var(--lane);color:var(--on-lane);border-color:var(--ink)}
+.btn.hi{background:var(--hi);color:var(--on-hi)}
+.btn.sm{padding:8px 14px;font-size:.85rem}
+
+/* Hero */
+.hero{padding-block:clamp(32px,6vw,72px)}
+.hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(24px,4vw,56px);align-items:center}
+.hero h1{font-size:clamp(3.2rem,10vw,7rem);font-weight:800;line-height:.92}
+.hero h1 span{color:var(--lane)}
+.hero .sub{font:600 1.2rem/1.3 var(--f-display);margin-top:18px;max-width:30ch}
+.hero .intro{color:var(--muted);margin-top:14px;max-width:54ch}
+.cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.hero figure{margin:0;min-width:0}
+figure.fig{margin:0;min-width:0}
+figcaption{font-size:.84rem;color:var(--muted);margin-top:8px}
+figcaption b{color:var(--ink)}
+.svgbox{background:var(--surface);border:2px solid var(--ink);border-radius:14px;padding:10px;overflow-x:auto}
+.svgbox svg{display:block;width:100%;height:auto;min-width:0}
+svg text{font-family:var(--f-body)}
+.f-lane{fill:var(--lane)}.f-pitch{fill:var(--pitch)}.f-hi{fill:var(--hi)}.f-soft{fill:var(--soft)}.f-surf{fill:var(--surface)}.f-ink{fill:var(--ink)}.f-none{fill:none}
+.s-ink{stroke:var(--ink)}.s-surf{stroke:var(--surface)}.s-lane{stroke:var(--lane)}.s-hi{stroke:var(--hi)}.s-line{stroke:var(--line)}.s-pitch{stroke:var(--pitch)}
+.t{fill:var(--ink)}.t-m{fill:var(--muted)}.t-on{fill:var(--on-lane)}.t-hi{fill:var(--on-hi)}.t-w{fill:#fff}
+
+/* Tecnologías */
+.tech{display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,4vw,48px);padding-block:clamp(28px,4vw,48px);border-top:2px solid var(--ink);align-items:start}
+.tech:first-of-type{margin-top:36px}
+.tech .num{font:800 3rem/1 var(--f-display);color:var(--lane)}
+.tech h3{font-size:clamp(1.6rem,3.4vw,2.3rem);margin-top:6px}
+.tech .what{margin-top:12px;color:var(--muted)}
+.qa{display:grid;gap:14px;margin-top:18px}
+.qa div{min-width:0}
+.qa dt{font:600 .72rem var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--pitch)}
+.qa dd{margin:2px 0 0}
+.vs{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}
+.vs div{background:var(--surface);border:2px solid var(--ink);border-radius:12px;padding:12px 14px;font-size:.92rem}
+.vs b{display:block;font:600 .72rem var(--f-mono);letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}
+.vs .ok b{color:var(--pitch)}.vs .no b{color:var(--lane)}
+.tech .vis{display:grid;gap:18px;min-width:0}
+.src{font-size:.84rem}
+.src a{color:var(--pitch);font-weight:600}
+
+/* Oportunidades */
+.tools{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:28px}
+.chip{font:600 .85rem var(--f-body);padding:8px 14px;border-radius:999px;border:2px solid var(--ink);background:var(--surface);color:var(--ink);cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.tools .sp{flex:1}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin-top:22px}
+.card{background:var(--surface);border:2px solid var(--ink);border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.card[hidden]{display:none!important}
+.card h3{font-size:1.5rem}
+.badges{display:flex;flex-wrap:wrap;gap:6px}
+.badge{font:500 .68rem var(--f-mono);letter-spacing:.06em;text-transform:uppercase;padding:4px 8px;border-radius:6px;border:1.5px solid var(--ink)}
+.badge.g{background:var(--pitch);color:#fff;border-color:var(--pitch)}
+.badge.h{background:var(--hi);color:var(--on-hi)}
+.badge.l{background:var(--lane);color:var(--on-lane);border-color:var(--lane)}
+.fich{display:grid;gap:10px;margin:0}
+.fich div{display:grid;grid-template-columns:96px 1fr;gap:12px;padding-top:10px;border-top:1px solid var(--line);min-width:0}
+.fich dt{font:500 .7rem var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding-top:3px}
+.fich dd{margin:0;font-size:.93rem;min-width:0;overflow-wrap:anywhere}
+.fich a{color:var(--pitch);font-weight:600}
+.note{background:var(--surface);border:2px dashed var(--ink);border-radius:12px;padding:14px 16px;font-size:.92rem;margin-top:22px}
+.tablewrap{overflow-x:auto;margin-top:22px;border:2px solid var(--ink);border-radius:14px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:760px;font-size:.9rem}
+th,td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font:500 .7rem var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);background:var(--soft)}
+tr:last-child td{border-bottom:0}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,4vw,40px);margin-top:36px;align-items:start}
+
+/* Profesión destacada */
+.prof-head{display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,4vw,48px);align-items:end}
+.facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:32px}
+.fact{background:var(--surface);border:2px solid var(--ink);border-radius:14px;padding:18px}
+.fact h4{font-size:1.15rem;margin-bottom:6px}
+.fact p,.fact li{font-size:.93rem;color:var(--muted)}
+.fact ul{margin:6px 0 0;padding-left:1.1rem}
+.vids{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:14px}
+.vid{display:flex;gap:14px;align-items:center;text-decoration:none;background:var(--surface);border:2px solid var(--ink);border-radius:14px;padding:14px}
+.vid:hover{box-shadow:0 3px 0 var(--ink)}
+.vid .play{flex:none;width:56px;height:56px;border-radius:50%;background:var(--lane);display:grid;place-items:center}
+.vid .play svg{width:22px;height:22px;margin-left:3px}
+.vid h4{font-size:1.02rem}
+.vid p{font-size:.84rem;color:var(--muted)}
+h3.sub2{font-size:1.7rem;margin-top:44px}
+
+/* Demo */
+.demo{display:grid;grid-template-columns:1.1fr .9fr;gap:20px;margin-top:20px;align-items:start}
+.panel{background:var(--surface);border:2px solid var(--ink);border-radius:14px;padding:18px;min-width:0}
+.score{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.score .pts{font:800 2.4rem/1 var(--f-display);font-variant-numeric:tabular-nums}
+.bar{flex:1;min-width:120px;height:12px;background:var(--soft);border:2px solid var(--ink);border-radius:8px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--pitch);transition:width .4s}
+.st{cursor:pointer}
+.st:focus-visible{outline:none}
+.st:focus-visible circle{stroke:var(--hi);stroke-width:4}
+.mission h4{font-size:1.3rem;margin:4px 0 8px}
+.opts{display:grid;gap:8px;margin-top:12px}
+.opt{text-align:left;font:500 .95rem var(--f-body);padding:10px 14px;border:2px solid var(--ink);border-radius:10px;background:var(--bg);color:var(--ink);cursor:pointer}
+.opt:hover:not(:disabled){background:var(--soft)}
+.opt.right{background:var(--pitch);color:#fff;border-color:var(--pitch)}
+.opt.wrong{background:var(--lane);color:var(--on-lane);border-color:var(--lane)}
+.opt:disabled{cursor:default}
+input[type=text],textarea{width:100%;font:400 1rem var(--f-body);padding:10px 12px;border:2px solid var(--ink);border-radius:10px;background:var(--bg);color:var(--ink)}
+.fb{margin-top:12px;font-size:.93rem;padding:10px 12px;border-radius:10px;background:var(--soft)}
+.fin{text-align:center;padding:10px}
+.fin .rank{font:800 1.9rem/1.1 var(--f-display);color:var(--lane);margin:6px 0 10px}
+.log{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:20px}
+
+footer{border-top:2px solid var(--ink);padding-block:28px;font-size:.88rem;color:var(--muted)}
+footer .wrap{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between}
+
+@media (max-width:860px){
+  .hero .wrap,.tech,.duo,.prof-head,.demo,.log{grid-template-columns:1fr}
+  .cards,.facts,.vids{grid-template-columns:1fr}
+  .top .wrap{gap:10px}
+  .brand{font-size:1.05rem}
+}
+@media (max-width:480px){
+  .fich div{grid-template-columns:1fr;gap:2px}
+  .vs{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+</style>
+</head>
+<body>
+
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#inicio">Campo<b>Digital</b></a>
+    <nav class="nav" aria-label="Secciones">
+      <a href="#inicio">Inicio</a>
+      <a href="#tecnologias">Tecnologías</a>
+      <a href="#oportunidades">Oportunidades</a>
+      <a href="#profesion">Profesión destacada</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<!-- 01 INICIO -->
+<section id="inicio" class="hero">
+  <div class="wrap">
+    <div>
+      <span class="mono kicker">Guía para TSEAS · curso 2026</span>
+      <h1 style="margin-top:14px">Campo<br><span>Digital</span></h1>
+      <p class="sub">Tecnología, trabajo y juego para quien estudia Enseñanza y Animación Sociodeportiva.</p>
+      <p class="intro">Un balón sonoro, una gymkana con GPS, un reel para la escuela de verano. Aquí tienes 3 tecnologías que ya se usan en el sector, 4 formas de ganarte la vida con ellas y una gymkana de prueba que puedes jugar ahora mismo.</p>
+      <div class="cta">
+        <a class="btn primary" href="#tecnologias">Explorar tecnologías</a>
+        <a class="btn" href="#oportunidades">Comparar oportunidades</a>
+        <a class="btn hi" href="#demo">Jugar la demo</a>
+      </div>
+    </div>
+    <figure class="fig">
+      <div class="svgbox">
+        <svg viewBox="0 0 480 340" role="img" aria-label="Pista de atletismo con una ruta de cuatro estaciones y un móvil que muestra reto superado">
+          <rect x="0" y="0" width="480" height="340" rx="10" class="f-soft"/>
+          <rect x="30" y="40" width="420" height="260" rx="130" class="f-lane"/>
+          <rect x="48" y="58" width="384" height="224" rx="112" class="f-none s-surf" stroke-width="2"/>
+          <rect x="66" y="76" width="348" height="188" rx="94" class="f-none s-surf" stroke-width="2"/>
+          <rect x="84" y="94" width="312" height="152" rx="76" class="f-pitch"/>
+          <line x1="240" y1="94" x2="240" y2="246" class="s-surf" stroke-width="2" opacity=".8"/>
+          <circle cx="240" cy="170" r="24" class="f-none s-surf" stroke-width="2" opacity=".8"/>
+          <path d="M120 170 C 165 112, 205 224, 255 160 S 345 120, 372 186" class="f-none s-hi" stroke-width="4" stroke-dasharray="2 9" stroke-linecap="round"/>
+          <g class="f-hi s-ink" stroke-width="2"><circle cx="120" cy="170" r="13"/><circle cx="205" cy="176" r="13"/><circle cx="290" cy="148" r="13"/><circle cx="372" cy="186" r="13"/></g>
+          <g class="t-hi" font-size="13" font-weight="700" text-anchor="middle"><text x="120" y="175" class="t-hi">1</text><text x="205" y="181" class="t-hi">2</text><text x="290" y="153" class="t-hi">3</text><text x="372" y="191" class="t-hi">4</text></g>
+          <rect x="344" y="196" width="84" height="128" rx="14" class="f-ink"/>
+          <rect x="351" y="210" width="70" height="98" rx="6" class="f-surf"/>
+          <circle cx="386" cy="244" r="15" class="f-pitch"/>
+          <path d="M378 244 l6 6 l10 -12" class="f-none s-surf" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          <text x="386" y="283" text-anchor="middle" font-size="10" font-weight="700" class="t">¡Reto superado!</text>
+          <text x="386" y="297" text-anchor="middle" font-size="9" class="t-m">+20 puntos</text>
+        </svg>
+      </div>
+      <figcaption><b>Portada.</b> Una gymkana con 4 estaciones sobre una pista, el tipo de actividad que hoy se diseña con apps de geolocalización.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 02 TECNOLOGÍAS -->
+<section id="tecnologias" class="band alt">
+  <div class="wrap">
+    <span class="mono kicker">Sección 02</span>
+    <h2 class="sec">Tres tecnologías que ya mueven el sector</h2>
+    <p class="lead">No son promesas de futuro. Son herramientas que hoy usan docentes, monitores y entidades. Para cada una verás qué es, cómo se usa, un ejemplo que puedes abrir, qué ventajas y límites tiene y cómo cambia tu trabajo.</p>
+
+    <article class="tech">
+      <div>
+        <div class="num">1</div>
+        <h3>Gamificación y plataformas interactivas</h3>
+        <p class="what">Consiste en usar la mecánica de los juegos (retos, puntos, niveles, rankings) en actividades que no son un juego en sí. Una sesión de pases se convierte en una misión con puntuación; el repaso de una norma, en un concurso.</p>
+        <dl class="qa">
+          <div><dt>Cómo se usa</dt><dd>El monitor crea preguntas o retos en una plataforma, el grupo responde desde el móvil y el ranking aparece en pantalla al instante. En Educación Física ya se usa Kahoot como evaluación final de proyectos gamificados, y una revisión publicada en 2026 en la revista Ágora analiza qué funciona y qué retos quedan.</dd></div>
+          <div><dt>Ejemplo real</dt><dd><a href="https://kahoot.com" target="_blank" rel="noopener">Kahoot!</a> (empresa noruega fundada en 2012) y <a href="https://genial.ly" target="_blank" rel="noopener">Genially</a> para crear juegos y presentaciones interactivas.</dd></div>
+          <div><dt>Cómo cambia tu trabajo</dt><dd>Pasas de explicar a diseñar experiencias. Un buen reto necesita regla clara, dificultad ajustada y feedback rápido. Eso es pedagogía, no informática.</dd></div>
+        </dl>
+        <div class="vs">
+          <div class="ok"><b>Ventajas</b>Motiva a grupos mixtos, da feedback inmediato y el plan gratuito basta para empezar.</div>
+          <div class="no"><b>Límites</b>El plan gratuito de Kahoot admite pocos participantes por sesión y exige que todos tengan móvil o tablet.</div>
+        </div>
+        <p class="src" style="margin-top:12px"><a href="https://revistas.uva.es/index.php/agora/en/article/download/10465/7590/34914" target="_blank" rel="noopener">Ver la revisión de Ágora (2026)</a></p>
+      </div>
+      <div class="vis">
+        <figure class="fig">
+          <div class="svgbox">
+            <svg viewBox="0 0 460 290" role="img" aria-label="Ciclo de gamificación: reto, puntos, feedback inmediato y nivel con insignia, alrededor de la motivación">
+              <defs><marker id="ar1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="f-ink"/></marker></defs>
+              <rect x="20" y="24" width="160" height="62" rx="10" class="f-surf s-ink" stroke-width="2"/>
+              <text x="34" y="48" font-size="13" font-weight="700" class="t">1 · Reto</text><text x="34" y="68" font-size="11" class="t-m">Una regla clara y un objetivo</text>
+              <rect x="280" y="24" width="160" height="62" rx="10" class="f-surf s-ink" stroke-width="2"/>
+              <text x="294" y="48" font-size="13" font-weight="700" class="t">2 · Puntos</text><text x="294" y="68" font-size="11" class="t-m">Cada acierto suma</text>
+              <rect x="280" y="204" width="160" height="62" rx="10" class="f-surf s-ink" stroke-width="2"/>
+              <text x="294" y="228" font-size="13" font-weight="700" class="t">3 · Feedback</text><text x="294" y="248" font-size="11" class="t-m">El grupo ve su avance</text>
+              <rect x="20" y="204" width="160" height="62" rx="10" class="f-surf s-ink" stroke-width="2"/>
+              <text x="34" y="228" font-size="13" font-weight="700" class="t">4 · Nivel</text><text x="34" y="248" font-size="11" class="t-m">Insignia y nuevo reto</text>
+              <path d="M184 55 H276" class="f-none s-ink" stroke-width="2" marker-end="url(#ar1)"/>
+              <path d="M360 90 V200" class="f-none s-ink" stroke-width="2" marker-end="url(#ar1)"/>
+              <path d="M276 235 H184" class="f-none s-ink" stroke-width="2" marker-end="url(#ar1)"/>
+              <path d="M100 200 V90" class="f-none s-ink" stroke-width="2" marker-end="url(#ar1)"/>
+              <circle cx="230" cy="145" r="44" class="f-hi s-ink" stroke-width="2"/>
+              <text x="230" y="143" text-anchor="middle" font-size="13" font-weight="700" class="t-hi">Motivación</text>
+              <text x="230" y="160" text-anchor="middle" font-size="10" class="t-hi">del grupo</text>
+            </svg>
+          </div>
+          <figcaption><b>Infografía 1.</b> El ciclo que repite cualquier actividad gamificada. Si falta una de las cuatro piezas, el juego pierde fuerza.</figcaption>
+        </figure>
+        <figure class="fig">
+          <div class="svgbox">
+            <svg viewBox="0 0 460 150" role="img" aria-label="Participantes por sesión en plan gratuito: Kahoot 10, Quizizz 100">
+              <text x="0" y="16" font-size="12" font-weight="700" class="t">Participantes por sesión en el plan gratuito</text>
+              <text x="0" y="52" font-size="12" class="t">Kahoot!</text>
+              <rect x="90" y="36" width="30" height="22" rx="4" class="f-lane"/><text x="128" y="52" font-size="12" font-weight="700" class="t">10</text>
+              <text x="0" y="96" font-size="12" class="t">Quizizz</text>
+              <rect x="90" y="80" width="300" height="22" rx="4" class="f-pitch"/><text x="398" y="96" font-size="12" font-weight="700" class="t">100</text>
+              <text x="0" y="132" font-size="10" class="t-m">Escala: 1 participante = 3 px. Los planes cambian, comprueba el vigente en cada web.</text>
+            </svg>
+          </div>
+          <figcaption><b>Infografía 2.</b> Un grupo de 25 alumnos no cabe en el plan gratuito de Kahoot. Datos de la comparativa de <a href="https://bit4learn.com/kahoot/?amp=1" target="_blank" rel="noopener">bit4learn (2026)</a>.</figcaption>
+        </figure>
+      </div>
+    </article>
+
+    <article class="tech">
+      <div>
+        <div class="num">2</div>
+        <h3>Geolocalización para juegos y orientación</h3>
+        <p class="what">El móvil sabe dónde está el grupo y puede activar una pregunta o un reto cuando llega a un punto del mapa. Así una gymkana, una ruta de orientación o una visita guiada se convierten en una búsqueda del tesoro digital.</p>
+        <dl class="qa">
+          <div><dt>Cómo se usa</dt><dd>El monitor diseña en el ordenador una ruta con estaciones, preguntas, misiones y códigos QR. Los participantes la juegan con la app. Los contenidos se descargan al empezar y funcionan sin conexión, salvo lo que viene de servidores externos.</dd></div>
+          <div><dt>Ejemplo real</dt><dd><a href="https://en.actionbound.com/" target="_blank" rel="noopener">Actionbound</a>, app de Berlín disponible desde 2012. Hay una <a href="https://en.actionbound.com/startguide/marialuisacdas2.pdf" target="_blank" rel="noopener">gymkana en el Parque de María Luisa y la Plaza de España</a> publicada como ejemplo.</dd></div>
+          <div><dt>Cómo cambia tu trabajo</dt><dd>Una misma ruta se repite con muchos grupos sin que tú estés en cada estación. Tu tiempo pasa de vigilar un juego a diseñarlo, probarlo y mejorarlo con los datos.</dd></div>
+        </dl>
+        <div class="vs">
+          <div class="ok"><b>Ventajas</b>Reutilizable, medible y muy vistosa para colegios, campamentos y empresas.</div>
+          <div class="no"><b>Límites</b>Crear rutas requiere licencia de pago. Depende de la cobertura y de la batería, y pide cuidar la seguridad en la calle.</div>
+        </div>
+        <p class="src" style="margin-top:12px"><a href="https://journals.univie.ac.at/index.php/mp/article/download/mi963/1124/1209" target="_blank" rel="noopener">Ver la guía de la Universidad de Viena</a> (en alemán).</p>
+      </div>
+      <div class="vis">
+        <figure class="fig">
+          <div class="svgbox">
+            <svg viewBox="0 0 460 290" role="img" aria-label="Mapa con cuatro estaciones unidas por una ruta, un radio de llegada por GPS y un móvil con una misión">
+              <rect x="0" y="0" width="460" height="290" rx="10" class="f-soft"/>
+              <g class="s-line" stroke-width="1"><path d="M0 70H460M0 140H460M0 210H460M90 0V290M180 0V290M270 0V290M360 0V290" class="f-none"/></g>
+              <path d="M50 230 C 90 150, 150 210, 190 140 S 270 90, 300 60" class="f-none s-lane" stroke-width="5" stroke-dasharray="3 9" stroke-linecap="round"/>
+              <circle cx="190" cy="140" r="40" class="f-none s-pitch" stroke-width="2.5" stroke-dasharray="5 5"/>
+              <text x="190" y="196" text-anchor="middle" font-size="11" font-weight="600" class="t">Radio de llegada por GPS</text>
+              <g class="f-hi s-ink" stroke-width="2"><circle cx="50" cy="230" r="13"/><circle cx="190" cy="140" r="13"/><circle cx="300" cy="60" r="13"/></g>
+              <text x="50" y="235" text-anchor="middle" font-size="13" font-weight="700" class="t-hi">A</text><text x="190" y="145" text-anchor="middle" font-size="13" font-weight="700" class="t-hi">B</text><text x="300" y="65" text-anchor="middle" font-size="13" font-weight="700" class="t-hi">C</text>
+              <rect x="112" y="238" width="34" height="34" rx="3" class="f-surf s-ink" stroke-width="2"/>
+              <path d="M118 244h8v8h-8zM132 244h8v8h-8zM118 258h8v8h-8zM134 258h4v4h-4zM140 264h2v2h-2z" class="f-ink"/>
+              <text x="129" y="283" text-anchor="middle" font-size="10" class="t-m">QR</text>
+              <rect x="338" y="96" width="102" height="176" rx="14" class="f-ink"/>
+              <rect x="345" y="110" width="88" height="148" rx="6" class="f-surf"/>
+              <text x="389" y="130" text-anchor="middle" font-size="10" font-weight="700" class="t">Estación B</text>
+              <rect x="352" y="140" width="74" height="40" rx="5" class="f-soft"/>
+              <text x="389" y="157" text-anchor="middle" font-size="9" class="t">¿Qué falta en</text><text x="389" y="169" text-anchor="middle" font-size="9" class="t">el calentamiento?</text>
+              <rect x="352" y="190" width="74" height="22" rx="5" class="f-pitch"/><text x="389" y="205" text-anchor="middle" font-size="9" font-weight="700" class="t-w">Responder</text>
+              <text x="389" y="238" text-anchor="middle" font-size="9" class="t-m">+20 puntos</text>
+            </svg>
+          </div>
+          <figcaption><b>Infografía 3.</b> Al entrar en el radio de la estación B, el móvil lanza la misión. En la estación con QR basta escanear el código.</figcaption>
+        </figure>
+      </div>
+    </article>
+
+    <article class="tech">
+      <div>
+        <div class="num">3</div>
+        <h3>Herramientas digitales de accesibilidad e inclusión</h3>
+        <p class="what">Son recursos que permiten que más personas participen en igualdad: pictogramas, subtítulos, lectura fácil, descripciones por voz, material adaptado y aplicaciones pensadas para personas con discapacidad.</p>
+        <dl class="qa">
+          <div><dt>Cómo se usa</dt><dd>Antes de la sesión adaptas la información: tarjetas con pictogramas para las normas, vídeos con subtítulos, instrucciones en lectura fácil. Durante la actividad eliges material que todos puedan usar, como un balón sonoro.</dd></div>
+          <div><dt>Ejemplo real</dt><dd>La federación FEMADDI lanzó una <a href="https://www.discapnet.es/noticia/femaddi-tiene-una-nueva-app-para-deportistas-con-discapacidad-intelectual" target="_blank" rel="noopener">app para deportistas con discapacidad intelectual</a> con apoyo de Fundación ONCE. Los pictogramas gratuitos de <a href="https://arasaac.org" target="_blank" rel="noopener">ARASAAC</a> sirven para preparar carteles y fichas.</dd></div>
+          <div><dt>Cómo cambia tu trabajo</dt><dd>Diseñas la actividad pensando en todos desde el principio. Fundación ONCE ofrece cursos gratuitos sobre accesibilidad a través de la UNED, que mejoran tu perfil.</dd></div>
+        </dl>
+        <div class="vs">
+          <div class="ok"><b>Ventajas</b>Amplía quién puede participar y es muy valorado por entidades sociales y administraciones.</div>
+          <div class="no"><b>Límites</b>La tecnología no sustituye a la persona de apoyo. Cada participante necesita un ajuste distinto.</div>
+        </div>
+        <p class="src" style="margin-top:12px"><a href="https://www.once.es/noticias/la-once-impulsa-el-primer-observatorio-del-deporte-inclusivo-1" target="_blank" rel="noopener">Observatorio del Deporte Inclusivo de la ONCE</a></p>
+      </div>
+      <div class="vis">
+        <figure class="fig">
+          <div class="svgbox">
+            <svg viewBox="0 0 460 300" role="img" aria-label="Cuatro necesidades de apoyo con su recurso digital o material adaptado">
+              <defs><marker id="ar3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="f-ink"/></marker></defs>
+              <g font-size="13" font-weight="700">
+                <rect x="0" y="10" width="110" height="56" rx="10" class="f-lane"/><text x="55" y="43" text-anchor="middle" class="t-on">Visual</text>
+                <rect x="0" y="82" width="110" height="56" rx="10" class="f-lane"/><text x="55" y="115" text-anchor="middle" class="t-on">Auditiva</text>
+                <rect x="0" y="154" width="110" height="56" rx="10" class="f-lane"/><text x="55" y="187" text-anchor="middle" class="t-on">Intelectual</text>
+                <rect x="0" y="226" width="110" height="56" rx="10" class="f-lane"/><text x="55" y="259" text-anchor="middle" class="t-on">Motriz</text>
+              </g>
+              <g class="f-none s-ink" stroke-width="2"><path d="M114 38H146" marker-end="url(#ar3)"/><path d="M114 110H146" marker-end="url(#ar3)"/><path d="M114 182H146" marker-end="url(#ar3)"/><path d="M114 254H146" marker-end="url(#ar3)"/></g>
+              <g class="f-surf s-ink" stroke-width="2"><rect x="150" y="10" width="300" height="56" rx="10"/><rect x="150" y="82" width="300" height="56" rx="10"/><rect x="150" y="154" width="300" height="56" rx="10"/><rect x="150" y="226" width="300" height="56" rx="10"/></g>
+              <g font-size="12" class="t">
+                <text x="164" y="34" class="t" font-weight="700">Balón sonoro</text><text x="164" y="52" class="t-m">y descripción por voz de la actividad</text>
+                <text x="164" y="106" class="t" font-weight="700">Subtítulos</text><text x="164" y="124" class="t-m">y señales visuales o gestos</text>
+                <text x="164" y="178" class="t" font-weight="700">Pictogramas y lectura fácil</text><text x="164" y="196" class="t-m">por ejemplo con ARASAAC</text>
+                <text x="164" y="250" class="t" font-weight="700">Reglas y espacio adaptados</text><text x="164" y="268" class="t-m">e inscripción online accesible</text>
+              </g>
+            </svg>
+          </div>
+          <figcaption><b>Infografía 4.</b> Cada necesidad pide un recurso distinto. Pregunta siempre a la persona y a su entorno antes de decidir.</figcaption>
+        </figure>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- 03 OPORTUNIDADES -->
+<section id="oportunidades" class="band">
+  <div class="wrap">
+    <span class="mono kicker">Sección 03</span>
+    <h2 class="sec">Cuatro oportunidades para comparar</h2>
+    <p class="lead">Dos salen directamente de tu ciclo, una es un emprendimiento digital y otra es de libre elección. Filtra por tipo o cambia a la tabla para compararlas lado a lado. Datos consultados el 6 de noviembre de 2026.</p>
+
+    <div class="tools" role="group" aria-label="Filtrar oportunidades">
+      <button class="chip" type="button" data-f="all" aria-pressed="true">Todas</button>
+      <button class="chip" type="button" data-f="ciclo" aria-pressed="false">Vinculadas al ciclo</button>
+      <button class="chip" type="button" data-f="emprende" aria-pressed="false">Emprendimiento</button>
+      <button class="chip" type="button" data-f="libre" aria-pressed="false">Libre</button>
+      <span class="sp"></span>
+      <button class="btn sm" type="button" id="viewToggle">Ver tabla comparativa</button>
+    </div>
+
+    <div class="cards" id="cards">
+      <article class="card" data-g="ciclo">
+        <div class="badges"><span class="badge g">Ligada al ciclo</span><span class="badge h">Servicio emergente</span></div>
+        <h3>Diseñador de gymkanas y retos con geolocalización</h3>
+        <dl class="fich">
+          <div><dt>Qué hace</dt><dd>Crea rutas con estaciones, preguntas y misiones para colegios, campamentos y eventos. Las prueba en el terreno, forma a los monitores que las dirigen y analiza resultados.</dd></div>
+          <div><dt>Herramientas</dt><dd>Actionbound, Kahoot, Genially, códigos QR y mapas.</dd></div>
+          <div><dt>Formación</dt><dd>El ciclo te da la base pedagógica y de animación. Las herramientas se aprenden en semanas. No hay título propio para esto.</dd></div>
+          <div><dt>Dónde trabaja</dt><dd>Colegios, ayuntamientos, campamentos, empresas de ocio activo y turismo, con contrato como monitor o como servicio propio.</dd></div>
+          <div><dt>Remuneración</dt><dd>Como monitor, el convenio de instalaciones deportivas deja en torno a 8,57 €/h de base en 2023 según <a href="https://fitgeneration.es/?p=816063" target="_blank" rel="noopener">FitGeneration</a>. Es un mínimo, no un sueldo medio. Como servicio, no he encontrado tarifas públicas y se acuerdan por actividad. La licencia docente de Actionbound cuesta entre 45 y 49 € al año según la fuente.</dd></div>
+          <div><dt>Ejemplo</dt><dd><a href="https://en.actionbound.com/startguide/marialuisacdas2.pdf" target="_blank" rel="noopener">Gymkana en el Parque de María Luisa y la Plaza de España</a>, publicada en Actionbound.</dd></div>
+        </dl>
+      </article>
+
+      <article class="card" data-g="ciclo">
+        <div class="badges"><span class="badge g">Ligada al ciclo</span><span class="badge l">Profesión consolidada</span></div>
+        <h3>Monitor de actividades inclusivas con apoyo tecnológico</h3>
+        <dl class="fich">
+          <div><dt>Qué hace</dt><dd>Dirige sesiones deportivas y de ocio para personas con discapacidad, adapta reglas y materiales y usa pictogramas, vídeos y apps para que todos participen.</dd></div>
+          <div><dt>Herramientas</dt><dd>Pictogramas ARASAAC, subtítulos automáticos, material sonoro, apps de entidades como FEMADDI.</dd></div>
+          <div><dt>Formación</dt><dd>El ciclo da acceso directo al trabajo de monitor. Cada oferta fija sus requisitos, así que revísalos. Los cursos de accesibilidad de la UNED y la ONCE suman.</dd></div>
+          <div><dt>Dónde trabaja</dt><dd>Entidades como Plena Inclusión, asociaciones, centros de ocio y campamentos inclusivos como los de la ONCE.</dd></div>
+          <div><dt>Remuneración</dt><dd>Sueldo por contrato. Una oferta de monitor deportivo publicada en <a href="https://es.jooble.org/jdp/-5205581892273349172" target="_blank" rel="noopener">Jooble</a> indicaba 1.448 €/mes. Un centro de FP cifra entre 18.000 y 30.000 € anuales el salario de un TSEAS, una estimación de un centro formativo, no una estadística oficial.</dd></div>
+          <div><dt>Ejemplo</dt><dd><a href="https://www.inef.upm.es/sfs/INEF/Calidad/Portal_Empleo/2022/PDF_ofertas/131022_SieteEstrellas.pdf" target="_blank" rel="noopener">Oferta de Siete Estrellas</a> (2022) para monitor de actividades con personas con discapacidad y <a href="https://elfarodeceuta.es/ofertas-empleo-disponibles-ceuta" target="_blank" rel="noopener">puestos de monitor deportivo en Plena Inclusión</a>.</dd></div>
+        </dl>
+      </article>
+
+      <article class="card" data-g="emprende">
+        <div class="badges"><span class="badge h">Emprendimiento digital</span><span class="badge h">Servicio emergente</span></div>
+        <h3>Webs no-code para clubes, escuelas y campamentos</h3>
+        <dl class="fich">
+          <div><dt>Qué hace</dt><dd>Crea y mantiene la web de una escuela deportiva o campamento: horarios, inscripción, galería y noticias. Puede añadir mantenimiento mensual.</dd></div>
+          <div><dt>Herramientas</dt><dd>Google Sites, Canva Websites, WordPress, Framer y asistentes de IA para redactar y diseñar.</dd></div>
+          <div><dt>Formación</dt><dd>El ciclo no lo cubre. Se aprende con tutoriales y práctica. Conocer el sector deportivo es tu ventaja frente a una agencia generalista.</dd></div>
+          <div><dt>Dónde trabaja</dt><dd>Clubes pequeños, escuelas de verano, academias, AMPAs y entrenadores personales. Trabaja por proyecto, de forma autónoma.</dd></div>
+          <div><dt>Remuneración</dt><dd>Es facturación, no sueldo. Una web básica cuesta entre 100 y 1.000 € según Hostinger, y la plataforma <a href="https://www.fixando.es/en/desarrollo-web/precio" target="_blank" rel="noopener">Fixando</a> indica trabajos de desarrollo web desde 45 €. De ahí hay que restar herramientas, tiempo e impuestos.</dd></div>
+          <div><dt>Ejemplo</dt><dd><a href="https://contra.com/s/BR23PNOA-desarrollo-web-framer-and-word-press" target="_blank" rel="noopener">Servicio de desarrollo web con Framer y WordPress</a> de un profesional en Madrid.</dd></div>
+        </dl>
+      </article>
+
+      <article class="card" data-g="libre">
+        <div class="badges"><span class="badge h">Libre elección</span><span class="badge h">Servicio freelance</span></div>
+        <h3>Editor de vídeos cortos para entidades deportivas</h3>
+        <dl class="fich">
+          <div><dt>Qué hace</dt><dd>Convierte grabaciones de entrenamientos, torneos y campamentos en reels, TikToks y Shorts con subtítulos, ritmo y gancho.</dd></div>
+          <div><dt>Herramientas</dt><dd>Editores de vídeo en móvil y navegador, como FlexClip, que tiene plantillas de vídeos de gimnasio.</dd></div>
+          <div><dt>Formación</dt><dd>Se aprende practicando y con un portafolio. Tu experiencia en actividades y grupos ayuda a elegir las mejores imágenes.</dd></div>
+          <div><dt>Dónde trabaja</dt><dd>Clubes, gimnasios, escuelas deportivas y agencias de redes. Puede ser a distancia.</dd></div>
+          <div><dt>Remuneración</dt><dd>Es facturación. Una oferta de <a href="https://www.workana.com/job/editor-de-video-tipo-reels-tiktok" target="_blank" rel="noopener">Workana</a> paga 10 USD por reel, unos 400 USD al mes por 40 reels. Otra, de agosto de 2026, ofrece <a href="https://www.workana.com/job/editor-de-video-para-contenido-corto-y-largo-reels-y-youtube" target="_blank" rel="noopener">500 € al mes</a> por 4 vídeos de YouTube y 30 a 45 reels. Exige emitir factura.</dd></div>
+          <div><dt>Ejemplo</dt><dd>La oferta de Workana de 31 de agosto de 2026 enlazada arriba, que pide edición limpia, subtítulos y constancia.</dd></div>
+        </dl>
+      </article>
+    </div>
+
+    <div class="tablewrap" id="tablewrap" hidden>
+      <table>
+        <thead><tr><th>Oportunidad</th><th>Tipo</th><th>Acceso desde TSEAS</th><th>Cómo se cobra</th><th>Cifra vista</th><th>Inversión inicial</th></tr></thead>
+        <tbody>
+          <tr><td><b>Gymkanas con geolocalización</b></td><td>Servicio emergente</td><td>Directo en diseño y dirección</td><td>Sueldo de monitor o tarifa por actividad</td><td>8,57 €/h de convenio (2023). Sin tarifas públicas de servicio</td><td>Licencia de 45 a 49 €/año, opcional</td></tr>
+          <tr><td><b>Monitor inclusivo con tecnología</b></td><td>Consolidada</td><td>Directo. Cada oferta fija requisitos</td><td>Sueldo</td><td>1.448 €/mes en una oferta de Jooble</td><td>Cursos de accesibilidad gratuitos</td></tr>
+          <tr><td><b>Webs no-code para clubes</b></td><td>Servicio emergente</td><td>Autodidacta, el ciclo no lo cubre</td><td>Facturación por proyecto</td><td>Desde 45 € (Fixando). Web básica de 100 a 1.000 €</td><td>Herramientas gratuitas y alta de autónomo</td></tr>
+          <tr><td><b>Vídeos cortos</b></td><td>Servicio freelance</td><td>Autodidacta con portafolio</td><td>Facturación por vídeo o paquete</td><td>10 USD por reel. 500 €/mes por 4 vídeos y 30 a 45 reels</td><td>Móvil, ordenador y apps gratuitas</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="duo">
+      <figure class="fig">
+        <div class="svgbox">
+          <svg viewBox="0 0 460 210" role="img" aria-label="Diferencia entre sueldo, facturación y beneficio">
+            <defs><marker id="ar5" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="f-ink"/></marker></defs>
+            <rect x="0" y="8" width="140" height="78" rx="10" class="f-pitch"/>
+            <text x="12" y="32" font-size="14" font-weight="700" class="t-w">Sueldo</text><text x="12" y="52" font-size="11" class="t-w">Te paga una empresa</text><text x="12" y="68" font-size="11" class="t-w">por contrato</text>
+            <rect x="160" y="8" width="140" height="78" rx="10" class="f-hi s-ink" stroke-width="2"/>
+            <text x="172" y="32" font-size="14" font-weight="700" class="t-hi">Facturación</text><text x="172" y="52" font-size="11" class="t-hi">Lo que cobras</text><text x="172" y="68" font-size="11" class="t-hi">a tus clientes</text>
+            <path d="M304 47H326" class="f-none s-ink" stroke-width="2" marker-end="url(#ar5)"/>
+            <rect x="330" y="8" width="130" height="78" rx="10" class="f-lane"/>
+            <text x="342" y="32" font-size="14" font-weight="700" class="t-on">Beneficio</text><text x="342" y="52" font-size="11" class="t-on">Lo que te queda</text><text x="342" y="68" font-size="11" class="t-on">tras gastos</text>
+            <text x="160" y="112" font-size="11" class="t-m">Beneficio = facturación − herramientas − impuestos − tu tiempo sin cobrar</text>
+            <rect x="0" y="130" width="460" height="64" rx="10" class="f-soft"/>
+            <text x="14" y="156" font-size="12" font-weight="700" class="t">500 € facturados no son 500 € en tu bolsillo</text>
+            <text x="14" y="176" font-size="11" class="t-m">En las fichas verás cada cifra marcada como sueldo o facturación.</text>
+          </svg>
+        </div>
+        <figcaption><b>Infografía 5.</b> Una oferta de 500 € al mes por vídeos es facturación de un autónomo. Compararla con un sueldo bruto es un error habitual.</figcaption>
+      </figure>
+      <figure class="fig">
+        <div class="svgbox">
+          <svg viewBox="0 0 460 260" role="img" aria-label="Qué oportunidades salen directamente del ciclo y cuáles piden aprender por tu cuenta">
+            <defs><marker id="ar6" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="f-ink"/></marker></defs>
+            <rect x="0" y="95" width="104" height="70" rx="12" class="f-ink"/>
+            <text x="52" y="127" text-anchor="middle" font-size="16" font-weight="800" fill="var(--bg)">TSEAS</text><text x="52" y="146" text-anchor="middle" font-size="10" fill="var(--bg)">tu ciclo</text>
+            <path d="M108 120 C 140 120, 130 50, 164 50" class="f-none s-ink" stroke-width="2" marker-end="url(#ar6)"/>
+            <path d="M108 140 C 140 140, 130 205, 164 205" class="f-none s-ink" stroke-width="2" marker-end="url(#ar6)"/>
+            <rect x="168" y="8" width="292" height="100" rx="12" class="f-pitch"/>
+            <text x="184" y="34" font-size="13" font-weight="700" class="t-w">Acceso directo</text>
+            <text x="184" y="56" font-size="12" class="t-w">• Monitor inclusivo con tecnología</text>
+            <text x="184" y="76" font-size="12" class="t-w">• Diseño de gymkanas y retos</text>
+            <text x="184" y="96" font-size="10" class="t-w">Se complementa con cursos cortos</text>
+            <rect x="168" y="152" width="292" height="100" rx="12" class="f-hi s-ink" stroke-width="2"/>
+            <text x="184" y="178" font-size="13" font-weight="700" class="t-hi">Aprender por tu cuenta</text>
+            <text x="184" y="200" font-size="12" class="t-hi">• Webs no-code para clubes</text>
+            <text x="184" y="220" font-size="12" class="t-hi">• Vídeos cortos para entidades</text>
+            <text x="184" y="240" font-size="10" class="t-hi">Requiere portafolio y alta de autónomo</text>
+          </svg>
+        </div>
+        <figcaption><b>Infografía 6.</b> Tu ciclo abre dos puertas directas. Las otras dos las abres con práctica y portafolio.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- 04 PROFESIÓN DESTACADA -->
+<section id="profesion" class="band alt">
+  <div class="wrap">
+    <span class="mono kicker">Sección 04 · Profesión destacada</span>
+    <div class="prof-head" style="margin-top:12px">
+      <h2 class="sec" style="max-width:14ch">Diseñador de gymkanas con geolocalización</h2>
+      <p class="lead" style="margin-top:0">La he elegido porque usa lo que ya sabes (grupos, juego, espacios) y añade una herramienta que se aprende rápido. Es un servicio emergente, no una profesión con título propio, y por eso conviene empezar con un prototipo antes de venderlo.</p>
+    </div>
+
+    <div class="facts">
+      <div class="fact"><h4>Cómo se empieza</h4><ul><li>Juega varias gymkanas de otros para ver qué funciona.</li><li>Abre una cuenta de prueba en Actionbound (14 días gratis según su web).</li><li>Diseña una ruta corta de tu barrio o de tu centro.</li></ul></div>
+      <div class="fact"><h4>A quién se ofrece</h4><p>Colegios que quieren salidas con contenido, campamentos de verano, ayuntamientos con programas juveniles, empresas de ocio activo y equipos que buscan una actividad de cohesión.</p></div>
+      <div class="fact"><h4>Dificultades</h4><ul><li>La licencia para crear rutas es de pago.</li><li>Hay que cuidar la seguridad en espacios públicos y la autorización de familias con menores.</li><li>Las guías de uso del propio sector piden evitar fotos de terceros por protección de datos.</li><li>Sin cobertura o batería, el grupo se queda parado.</li></ul></div>
+      <div class="fact"><h4>Por qué merece la pena</h4><p>Una ruta bien hecha se reutiliza con muchos grupos. Te diferencia de otros candidatos a monitor y te acerca a clientes que pagan por diseño, no solo por horas de presencia.</p></div>
+    </div>
+
+    <h3 class="sub2">Qué puedes aprender en seis meses</h3>
+    <figure class="fig" style="margin-top:14px">
+      <div class="svgbox">
+        <svg viewBox="0 0 600 200" style="min-width:560px" role="img" aria-label="Hoja de ruta de seis meses para aprender a diseñar gymkanas digitales">
+          <line x1="40" y1="60" x2="560" y2="60" class="s-ink" stroke-width="4"/>
+          <g class="f-lane s-ink" stroke-width="2"><circle cx="50" cy="60" r="14"/><circle cx="142" cy="60" r="14"/><circle cx="234" cy="60" r="14"/><circle cx="326" cy="60" r="14"/><circle cx="418" cy="60" r="14"/><circle cx="510" cy="60" r="14"/></g>
+          <g font-size="12" font-weight="800" text-anchor="middle" class="t-on"><text x="50" y="65" class="t-on">1</text><text x="142" y="65" class="t-on">2</text><text x="234" y="65" class="t-on">3</text><text x="326" y="65" class="t-on">4</text><text x="418" y="65" class="t-on">5</text><text x="510" y="65" class="t-on">6</text></g>
+          <g font-size="12" text-anchor="middle" class="t">
+            <text x="50" y="102" font-weight="700" class="t">Probar</text><text x="50" y="119" class="t-m">Actionbound</text><text x="50" y="134" class="t-m">y Kahoot</text>
+            <text x="142" y="102" font-weight="700" class="t">Diseñar</text><text x="142" y="119" class="t-m">3 rutas cortas</text><text x="142" y="134" class="t-m">de temas distintos</text>
+            <text x="234" y="102" font-weight="700" class="t">Dominar</text><text x="234" y="119" class="t-m">QR, mapas y</text><text x="234" y="134" class="t-m">tipos de misión</text>
+            <text x="326" y="102" font-weight="700" class="t">Probar</text><text x="326" y="119" class="t-m">con un grupo</text><text x="326" y="134" class="t-m">real y pequeño</text>
+            <text x="418" y="102" font-weight="700" class="t">Medir</text><text x="418" y="119" class="t-m">resultados y</text><text x="418" y="134" class="t-m">mejorar la ruta</text>
+            <text x="510" y="102" font-weight="700" class="t">Ofrecer</text><text x="510" y="119" class="t-m">portafolio y</text><text x="510" y="134" class="t-m">primeras propuestas</text>
+          </g>
+          <text x="40" y="22" font-size="11" class="t-m">MES</text>
+        </svg>
+      </div>
+      <figcaption><b>Infografía 7.</b> Una hoja de ruta realista para aprender trabajando. Al sexto mes tienes tres rutas, una prueba con grupo y material para enseñar.</figcaption>
+    </figure>
+
+    <h3 class="sub2">Vídeos para aprender</h3>
+    <div class="vids">
+      <a class="vid" href="https://www.youtube.com/watch?v=xzCnfSm_Po0" target="_blank" rel="noopener">
+        <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 3l16 9-16 9z" class="f-surf"/></svg></span>
+        <span><h4>Actionbound paso a paso (YouTube)</h4><p>Seminario en directo sobre cómo crear una búsqueda del tesoro digital. En inglés.</p></span>
+      </a>
+      <a class="vid" href="https://en.actionbound.com/videotutorials" target="_blank" rel="noopener">
+        <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 3l16 9-16 9z" class="f-surf"/></svg></span>
+        <span><h4>Videotutoriales oficiales de Actionbound</h4><p>Curso para principiantes publicado por la propia empresa. En inglés.</p></span>
+      </a>
+    </div>
+
+    <h3 class="sub2" id="demo">Prueba práctica: juega mi gymkana</h3>
+    <p class="lead">Este prototipo copia la lógica de una ruta de Actionbound: estaciones en un mapa, misiones de varios tipos y puntos. Toca una estación, completa la misión y mira cómo sube tu marcador.</p>
+
+    <div class="demo">
+      <div class="panel">
+        <figure class="fig" style="margin:0">
+          <svg viewBox="0 0 490 270" id="demoMap" style="display:block;width:100%;height:auto" role="group" aria-label="Mapa de la gymkana con cinco estaciones">
+            <rect x="0" y="0" width="490" height="270" rx="10" class="f-soft"/>
+            <g class="s-line" stroke-width="1"><path d="M0 68H490M0 135H490M0 202H490M98 0V270M196 0V270M294 0V270M392 0V270" class="f-none"/></g>
+            <path d="M60 205 C 90 110, 120 90, 150 92 S 215 215, 250 190 S 320 70, 350 82 S 410 170, 430 172" class="f-none s-lane" stroke-width="4" stroke-dasharray="3 9" stroke-linecap="round"/>
+            <g id="stations"></g>
+          </svg>
+          <figcaption><b>Infografía 8.</b> Mapa del prototipo. Las estaciones cambian a verde cuando completas la misión.</figcaption>
+        </figure>
+        <div class="score" style="margin-top:14px"><span class="pts" id="pts">0</span><span class="mono">de 100 puntos</span><div class="bar" aria-hidden="true"><i id="barfill"></i></div></div>
+      </div>
+      <div class="panel mission" id="mission" aria-live="polite"></div>
+    </div>
+
+    <figure class="fig" style="margin-top:22px">
+      <div class="svgbox">
+        <svg viewBox="0 0 600 150" style="min-width:560px" role="img" aria-label="Los cinco tipos de misión del prototipo y los puntos que da cada una">
+          <g font-size="12" text-anchor="middle">
+            <rect x="0" y="10" width="112" height="86" rx="10" class="f-surf s-ink" stroke-width="2"/><text x="56" y="38" font-weight="700" class="t">1 · Quiz</text><text x="56" y="58" class="t-m">Pregunta con</text><text x="56" y="73" class="t-m">4 opciones</text><text x="56" y="89" class="t" font-weight="700">20 pts</text>
+            <rect x="122" y="10" width="112" height="86" rx="10" class="f-surf s-ink" stroke-width="2"/><text x="178" y="38" font-weight="700" class="t">2 · Reto</text><text x="178" y="58" class="t-m">Prueba física</text><text x="178" y="73" class="t-m">de equipo</text><text x="178" y="89" class="t" font-weight="700">20 pts</text>
+            <rect x="244" y="10" width="112" height="86" rx="10" class="f-surf s-ink" stroke-width="2"/><text x="300" y="38" font-weight="700" class="t">3 · Código</text><text x="300" y="58" class="t-m">Palabra oculta</text><text x="300" y="73" class="t-m">como un QR</text><text x="300" y="89" class="t" font-weight="700">20 pts</text>
+            <rect x="366" y="10" width="112" height="86" rx="10" class="f-surf s-ink" stroke-width="2"/><text x="422" y="38" font-weight="700" class="t">4 · Inclusión</text><text x="422" y="58" class="t-m">Elegir la</text><text x="422" y="73" class="t-m">adaptación</text><text x="422" y="89" class="t" font-weight="700">20 pts</text>
+            <rect x="488" y="10" width="112" height="86" rx="10" class="f-surf s-ink" stroke-width="2"/><text x="544" y="38" font-weight="700" class="t">5 · Cierre</text><text x="544" y="58" class="t-m">Texto libre</text><text x="544" y="73" class="t-m">de mejora</text><text x="544" y="89" class="t" font-weight="700">20 pts</text>
+          </g>
+          <text x="0" y="128" font-size="11" class="t-m">En el quiz, una respuesta incorrecta da 5 puntos y una explicación, para aprender aunque se falle.</text>
+        </svg>
+      </div>
+      <figcaption><b>Infografía 9.</b> Los tipos de misión que combina el prototipo. En Actionbound hay más, como misiones con foto o torneos.</figcaption>
+    </figure>
+
+    <div class="log">
+      <div class="fact"><h4>Qué hice</h4><ul><li>Elegí un tema: un reto polideportivo para un grupo mixto.</li><li>Dibujé una ruta de 5 estaciones y una misión por estación.</li><li>Escribí las preguntas y la puntuación, con una estación de inclusión.</li><li>Construí el prototipo para jugarlo en el móvil y lo probé yo.</li></ul></div>
+      <div class="fact"><h4>Resultado obtenido</h4><p>Un prototipo jugable de unos 10 minutos, con 5 misiones de 4 tipos y marcador sobre 100 puntos. Mostró lo que pasa en una ruta real: cuando la pregunta falla, el feedback inmediato enseña, y las estaciones con una acción física dan el cambio de ritmo.</p></div>
+      <div class="fact"><h4>Límites de la prueba</h4><p>No usa GPS ni la app real y solo la he jugado yo. Un servicio de verdad necesita probarse con un grupo, medir tiempos y comprobar la cobertura en el sitio.</p></div>
+      <div class="fact"><h4>Siguiente paso</h4><p>Replicar la ruta en Actionbound con la <a href="https://en.actionbound.com/first-steps" target="_blank" rel="noopener" style="font-weight:600;color:var(--pitch)">prueba gratuita</a> y jugarla con compañeros en el patio del centro.</p></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Campo Digital · Proyecto final de Digitalización · TSEAS · 2026</span>
+    <a href="#inicio">Volver arriba</a>
+  </div>
+</footer>
+
+<script>
+(function(){
+  /* Resalta la sección visible en el menú */
+  var links=[].slice.call(document.querySelectorAll('.nav a'));
+  var ids=['inicio','tecnologias','oportunidades','profesion'];
+  function mark(id){links.forEach(function(a){a.setAttribute('aria-current',a.getAttribute('href')==='#'+id?'true':'false')})}
+  mark('inicio');
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)mark(e.target.id)})},{rootMargin:'-30% 0px -60% 0px'});
+    ids.forEach(function(i){var el=document.getElementById(i);if(el)io.observe(el)});
+  }
+
+  /* Filtros y vista de tabla */
+  var chips=[].slice.call(document.querySelectorAll('.chip'));
+  var cards=[].slice.call(document.querySelectorAll('#cards .card'));
+  chips.forEach(function(c){c.addEventListener('click',function(){
+    chips.forEach(function(x){x.setAttribute('aria-pressed',x===c?'true':'false')});
+    var f=c.getAttribute('data-f');
+    cards.forEach(function(k){k.hidden=!(f==='all'||k.getAttribute('data-g')===f)});
+  })});
+  var tgl=document.getElementById('viewToggle'),cw=document.getElementById('cards'),tw=document.getElementById('tablewrap');
+  tgl.addEventListener('click',function(){
+    var showTable=tw.hidden;
+    tw.hidden=!showTable;cw.hidden=showTable;
+    tgl.textContent=showTable?'Ver fichas':'Ver tabla comparativa';
+  });
+
+  /* Demo de gymkana */
+  var S=[
+    {x:60,y:205,t:'Salida · Calentamiento',type:'quiz',q:'La OMS recomienda a niños y adolescentes de 5 a 17 años una media diaria de actividad física de intensidad moderada a vigorosa de…',o:['15 minutos','30 minutos','60 minutos','120 minutos'],a:2,e:'Son 60 minutos de media al día. Lo recomienda la OMS.'},
+    {x:150,y:92,t:'Reto de equipo',type:'reto',q:'Haced 10 pases seguidos sin que el balón toque el suelo. Cuando lo consigáis, marcad el reto.'},
+    {x:250,y:190,t:'Código oculto',type:'code',q:'El monitor ha escondido una palabra en el cartel de la estación. Para la prueba, la pista es el nombre de esta web: escribe la primera palabra.',code:'campo'},
+    {x:350,y:82,t:'Estación de inclusión',type:'quiz',q:'Una participante con discapacidad visual juega con vosotros. ¿Qué adaptación le permite seguir el balón?',o:['Subtítulos en pantalla','Un balón sonoro con cascabel','Una ficha con pictogramas','Reducir el tiempo de juego'],a:1,e:'El balón sonoro permite seguir la pelota por el oído, como se hace en el goalball.'},
+    {x:430,y:172,t:'Cierre · Reflexión',type:'text',q:'Escribe una mejora que harías a esta gymkana (mínimo 10 caracteres).'}
+  ];
+  var done={},pts=0,cur=-1;
+  var g=document.getElementById('stations'),NS='http://www.w3.org/2000/svg';
+  function el(n,a){var e=document.createElementNS(NS,n);for(var k in a)e.setAttribute(k,a[k]);return e}
+  S.forEach(function(s,i){
+    var grp=el('g',{'class':'st',tabindex:'0',role:'button','aria-label':'Estación '+(i+1)+': '+s.t});
+    var c=el('circle',{cx:s.x,cy:s.y,r:16,'class':'f-hi s-ink','stroke-width':2,id:'c'+i});
+    var tx=el('text',{x:s.x,y:s.y+5,'text-anchor':'middle','font-size':14,'font-weight':700,'class':'t-hi',id:'n'+i});tx.textContent=String(i+1);
+    grp.appendChild(c);grp.appendChild(tx);
+    grp.addEventListener('click',function(){open(i)});
+    grp.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();open(i)}});
+    g.appendChild(grp);
+  });
+  var M=document.getElementById('mission');
+  function setScore(){
+    document.getElementById('pts').textContent=pts;
+    document.getElementById('barfill').style.width=Math.min(100,pts)+'%';
+  }
+  function finish(i,p){
+    if(done[i])return;
+    done[i]=true;pts+=p;setScore();
+    var c=document.getElementById('c'+i);c.setAttribute('class','f-pitch s-ink');
+    var n=document.getElementById('n'+i);n.setAttribute('class','t-w');
+  }
+  function fb(msg){
+    var d=document.createElement('div');d.className='fb';d.textContent=msg;M.appendChild(d);
+    var cnt=Object.keys(done).length;
+    var b=document.createElement('button');b.type='button';b.className='btn sm primary';b.style.marginTop='12px';
+    b.textContent=cnt===S.length?'Ver resultado final':'Siguiente estación';
+    b.addEventListener('click',function(){
+      if(cnt===S.length){showFinal();return}
+      for(var k=0;k<S.length;k++){if(!done[k]){open(k);return}}
+    });
+    M.appendChild(b);
+  }
+  function open(i){
+    cur=i;var s=S[i];M.innerHTML='';
+    var m=document.createElement('div');m.className='mono';m.textContent='Estación '+(i+1)+' de '+S.length;M.appendChild(m);
+    var h=document.createElement('h4');h.textContent=s.t;M.appendChild(h);
+    var p=document.createElement('p');p.textContent=s.q;M.appendChild(p);
+    if(done[i]){var d=document.createElement('div');d.className='fb';d.textContent='Esta estación ya está completada.';M.appendChild(d);return}
+    if(s.type==='quiz'){
+      var box=document.createElement('div');box.className='opts';
+      s.o.forEach(function(txt,k){
+        var b=document.createElement('button');b.type='button';b.className='opt';b.textContent=txt;
+        b.addEventListener('click',function(){
+          var all=box.querySelectorAll('.opt');all.forEach(function(x){x.disabled=true});
+          var ok=(k===s.a);
+          b.classList.add(ok?'right':'wrong');if(!ok)all[s.a].classList.add('right');
+          finish(i,ok?20:5);fb((ok?'¡Correcto! +20. ':'Casi. +5. ')+s.e);
+        });
+        box.appendChild(b);
+      });
+      M.appendChild(box);
+    }else if(s.type==='reto'){
+      var b=document.createElement('button');b.type='button';b.className='btn hi';b.style.marginTop='12px';b.textContent='Lo hemos conseguido';
+      b.addEventListener('click',function(){b.disabled=true;finish(i,20);fb('Reto superado. +20. En una ruta real, el monitor confirmaría el reto o pediría una foto.')});
+      M.appendChild(b);
+    }else if(s.type==='code'){
+      var f=document.createElement('form');f.style.marginTop='12px';f.style.display='grid';f.style.gap='10px';
+      var lab=document.createElement('label');lab.htmlFor='codeIn';lab.className='mono';lab.textContent='Código';
+      var inp=document.createElement('input');inp.type='text';inp.id='codeIn';inp.autocomplete='off';inp.placeholder='Escribe el código';
+      var b=document.createElement('button');b.type='submit';b.className='btn hi';b.textContent='Comprobar';
+      f.appendChild(lab);f.appendChild(inp);f.appendChild(b);
+      var msg=document.createElement('div');
+      f.addEventListener('submit',function(e){
+        e.preventDefault();
+        if(inp.value.trim().toLowerCase()===s.code){b.disabled=true;inp.disabled=true;finish(i,20);fb('Código correcto. +20. En Actionbound esta misión se resuelve escaneando un QR.')}
+        else{msg.className='fb';msg.textContent='Ese no es el código. Prueba con la primera palabra del nombre de la web.'}
+      });
+      M.appendChild(f);M.appendChild(msg);
+    }else{
+      var f2=document.createElement('form');f2.style.marginTop='12px';f2.style.display='grid';f2.style.gap='10px';
+      var lab2=document.createElement('label');lab2.htmlFor='txtIn';lab2.className='mono';lab2.textContent='Tu propuesta';
+      var ta=document.createElement('textarea');ta.id='txtIn';ta.rows=3;
+      var b2=document.createElement('button');b2.type='submit';b2.className='btn hi';b2.textContent='Enviar propuesta';
+      f2.appendChild(lab2);f2.appendChild(ta);f2.appendChild(b2);
+      var msg2=document.createElement('div');
+      f2.addEventListener('submit',function(e){
+        e.preventDefault();
+        if(ta.value.trim().length>=10){b2.disabled=true;ta.disabled=true;finish(i,20);fb('Propuesta guardada. +20. Los comentarios de los jugadores son la mejor fuente para mejorar una ruta.')}
+        else{msg2.className='fb';msg2.textContent='Escribe al menos 10 caracteres.'}
+      });
+      M.appendChild(f2);M.appendChild(msg2);
+    }
+  }
+  function showFinal(){
+    var rank=pts>=90?'Capitán o capitana del campo':(pts>=60?'Titular':'Suplente con ganas');
+    M.innerHTML='';
+    var w=document.createElement('div');w.className='fin';
+    w.innerHTML='<div class="mono">Resultado final</div><div class="rank"></div><p></p>';
+    w.querySelector('.rank').textContent=rank;
+    w.querySelector('p').textContent='Has conseguido '+pts+' de 100 puntos.';
+    var b=document.createElement('button');b.type='button';b.className='btn';b.style.marginTop='14px';b.textContent='Jugar de nuevo';
+    b.addEventListener('click',reset);
+    w.appendChild(b);M.appendChild(w);
+  }
+  function reset(){
+    done={};pts=0;setScore();
+    S.forEach(function(s,i){document.getElementById('c'+i).setAttribute('class','f-hi s-ink');document.getElementById('n'+i).setAttribute('class','t-hi')});
+    intro();
+  }
+  function intro(){
+    M.innerHTML='<div class="mono">Cómo jugar</div><h4>Toca una estación del mapa</h4><p>Cada misión suma puntos. Puedes hacerlas en el orden que quieras. Empieza por la 1.</p>';
+    var b=document.createElement('button');b.type='button';b.className='btn primary';b.style.marginTop='14px';b.textContent='Ir a la estación 1';
+    b.addEventListener('click',function(){open(0)});
+    M.appendChild(b);
+  }
+  intro();setScore();
+})();
+</script>
+
+</body>
+</html>
